@@ -33,8 +33,8 @@ function startGame() {
     mapRowCols.forEach((row, rowIndex) => {
         row.forEach((col, colIndex) => {
             const emoji = emojis[col];
-            const posX = elementsSize * (colIndex + 1);
-            const posY = elementsSize * (rowIndex + 1);
+            const posX = elementsSize * (colIndex + 1.2);
+            const posY = elementsSize * (rowIndex + 0.85);
             game.fillText(emoji, posX, posY);
         });
     });
