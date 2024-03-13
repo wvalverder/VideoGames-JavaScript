@@ -41,6 +41,8 @@ function startGame() {
     const mapRowCols = mapRows.map(row => row.trim().split(''));
     console.log({map,mapRows,mapRowCols});
 
+    game.clearRect(0, 0, canvasSize, canvasSize);
+
     mapRowCols.forEach((row, rowIndex) => {
         row.forEach((col, colIndex) => {
             const emoji = emojis[col];
@@ -48,9 +50,10 @@ function startGame() {
             const posY = elementsSize * (rowIndex + 0.85);
 
             if(col === 'O') {
-                    playerposition.x = posX;
-                    playerposition.y = posY;
-                    console.log({playerposition});
+                    if(!playerposition.x && !playerposition.y) {
+                        playerposition.x = posX;
+                        playerposition.y = posY;
+                    }
             }
             game.fillText(emoji, posX, posY);
         });
@@ -64,7 +67,7 @@ function startGame() {
     }*/
 }
 
-function movePlayer(event) {
+function movePlayer() {
     game.fillText(emojis['PLAYER'], playerposition.x, playerposition.y);
 }
 
@@ -83,18 +86,44 @@ function moveByKeys(event) {
 
 function moveUp() {
     console.log('Me quiero mover hacia arriba');
-    playerposition.y -= elementsSize;
-    movePlayer();
+    if((playerposition.y-elementsSize) < elementsSize) {
+         console.log('OUT');
+    }else {
+        playerposition.y -= elementsSize;
+        startGame();
+    }
+    
 }
 
 function moveLeft() {
     console.log('Me quiero mover hacia izquierda');
+    if((playerposition.x-elementsSize) < elementsSize) {
+        console.log('OUT');
+   }else {
+     playerposition.x -= elementsSize;
+     startGame();
+   }
+    
 }
 
 function moveRight() {
     console.log('Me quiero mover hacia derecha');
+    if((playerposition.x+elementsSize) > canvasSize) {
+        console.log('OUT');
+    }else {
+      playerposition.x += elementsSize;
+      startGame();
+    }
+    
 }
 
 function moveDown() {
     console.log('Me quiero mover hacia abajo');
+    if((playerposition.y+elementsSize) > canvasSize) {
+        console.log('OUT');
+    }else {
+        playerposition.y += elementsSize;
+        startGame();
+    }
+    
 }
